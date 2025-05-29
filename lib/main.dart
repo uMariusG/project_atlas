@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'dart:io';
 
-void main() {
+
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+
+  // Read from the .env file
+  final fromDotenv = dotenv.env['FATSECRET_KEY'];
+  // Read from the environment (CI)
+  final fromEnv    = Platform.environment['FATSECRET_KEY'];
+
+  // Print both so we can see them in console / CI logs
+  debugPrint('🌱 FATSECRET_KEY (dotenv): $fromDotenv');
+  debugPrint('🔒 FATSECRET_KEY (env):   $fromEnv');
+
   runApp(const MyApp());
 }
 
